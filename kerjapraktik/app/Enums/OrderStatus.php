@@ -21,3 +21,14 @@ enum OrderStatus: string
         };
     }
 
+public function color(): string
+    {
+        return match ($this) {
+            self::PENDING => 'yellow',
+            self::PENDING_PAYMENT => 'orange',
+            self::READY_FOR_PICKUP => 'blue',
+            self::COMPLETED => 'green',
+            self::CANCELLED => 'red',
+        };
+    }
+}
