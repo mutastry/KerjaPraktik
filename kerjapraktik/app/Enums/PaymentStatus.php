@@ -1,3 +1,5 @@
+<?php
+
 namespace App\Enums;
 
 enum PaymentStatus: string
@@ -16,5 +18,16 @@ enum PaymentStatus: string
             self::FAILED => 'Failed',
         };
     }
+
+public function color(): string
+    {
+        return match ($this) {
+            self::PENDING => 'yellow',
+            self::WAITING_VERIFICATION => 'blue',
+            self::VERIFIED => 'green',
+            self::FAILED => 'red',
+        };
+    }
+}
 
     
