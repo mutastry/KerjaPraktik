@@ -9,13 +9,22 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
-        Schema::table('users', function (Blueprint $table) {
+   public function up(): void
+{
+    Schema::table('users', function (Blueprint $table) {
+        // Cek apakah kolom 'is_admin' ada sebelum drop
+        if (Schema::hasColumn('users', 'is_admin')) {
             $table->dropColumn('is_admin');
-            $table->enum('role', ['admin', 'cashier', 'employee', 'owner'])->nullable()->after('email');
-        });
-    }
+        }
+
+        // Tambahkan kolom 'role' hanya jika belum ada
+        if (!Schema::hasColumn('users', 'role')) {
+            $table->enum('role', ['admin', 'cashier', 'employee', 'owner'])
+                  ->nullable()
+                  ->after('email');
+        }
+    });
+}
 
     /**
      * Reverse the migrations.
